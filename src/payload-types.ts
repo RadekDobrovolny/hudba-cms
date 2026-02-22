@@ -124,6 +124,7 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
+  displayName?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -197,6 +198,7 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
+  author?: (number | null) | User;
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -288,6 +290,7 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  displayName?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -342,6 +345,7 @@ export interface PostsSelect<T extends boolean = true> {
   coverImage?: T;
   tags?: T;
   content?: T;
+  author?: T;
   publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;

@@ -33,6 +33,11 @@ const Posts: CollectionConfig = {
       type: 'richText',
     },
     {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'users',
+    },
+    {
       name: 'publishedAt',
       type: 'date',
     },

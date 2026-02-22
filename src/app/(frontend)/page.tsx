@@ -12,8 +12,26 @@ export default async function HomePage() {
   const payloadConfig = await config
   const payload = await getPayload({ config: payloadConfig })
   const { user } = await payload.auth({ headers })
+  const { docs: posts } = await payload.find({
+    collection: 'posts',
+    depth: 1,
+    limit: 12,
+    sort: '-publishedAt',
+  })
 
   const fileURL = `vscode://file/${fileURLToPath(import.meta.url)}`
+
+  const getAuthorName = (author: unknown): string => {
+    if (!author || typeof author !== 'object') return 'Unknown author'
+
+    const candidate = author as { displayName?: null | string }
+
+    if (candidate.displayName && candidate.displayName.trim()) {
+      return candidate.displayName.trim()
+    }
+
+    return 'Unknown author'
+  }
 
   return (
     <div className="home">
@@ -47,6 +65,22 @@ export default async function HomePage() {
             Documentation
           </a>
         </div>
+        <section className="posts">
+          <h2>Posts</h2>
+          {posts.length === 0 && <p>No posts yet.</p>}
+          {posts.length > 0 && (
+            <ul className="postsList">
+              {posts.map((post) => (
+                <li className="postItem" key={post.id}>
+                  <h3>{post.title}</h3>
+                  <p>
+                    Author: <strong>{getAuthorName(post.author)}</strong>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
       </div>
       <div className="footer">
         <p>Update this page by editing</p>
