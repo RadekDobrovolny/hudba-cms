@@ -10,6 +10,7 @@ services:
     volumes:
       - hudba_data:/data
     restart: unless-stopped
+    command: sh -c "node node_modules/.bin/payload migrate && node server.js"
 
 volumes:
   hudba_data:
