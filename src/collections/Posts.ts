@@ -38,11 +38,7 @@ const Posts: CollectionConfig = {
     },
   ],
   access: {
-    read: () => ({
-      publishedAt: {
-        less_than_equal: new Date().toISOString(),
-      },
-    }),
+    read: () => true,
   },
 }
 
