@@ -37,6 +37,13 @@ const Posts: CollectionConfig = {
       type: 'date',
     },
   ],
+  access: {
+    read: () => ({
+      publishedAt: {
+        less_than_equal: new Date().toISOString(),
+      },
+    }),
+  },
 }
 
 export default Posts
