@@ -35,7 +35,7 @@ const Posts: CollectionConfig = {
     {
       name: 'author',
       type: 'relationship',
-      relationTo: 'users',
+      relationTo: 'authors',
     },
     {
       name: 'publishedAt',

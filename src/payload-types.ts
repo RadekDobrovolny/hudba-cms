@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     tags: Tag;
+    authors: Author;
     posts: Post;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
@@ -81,6 +82,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -124,7 +126,6 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: number;
-  displayName?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -175,6 +176,16 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "posts".
  */
 export interface Post {
@@ -198,7 +209,7 @@ export interface Post {
     };
     [k: string]: unknown;
   } | null;
-  author?: (number | null) | User;
+  author?: (number | null) | Author;
   publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -238,6 +249,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: number | Tag;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
       } | null)
     | ({
         relationTo: 'posts';
@@ -290,7 +305,6 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
-  displayName?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -331,6 +345,15 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "tags_select".
  */
 export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
   name?: T;
   updatedAt?: T;
   createdAt?: T;

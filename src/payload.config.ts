@@ -9,6 +9,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import Tags from './collections/Tags'
 import Posts from './collections/Posts'
+import Authors from './collections/Authors'
 
 import { migrations } from './migrations'
 
@@ -22,7 +23,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Tags, Posts],
+  collections: [Users, Media, Tags, Authors, Posts],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

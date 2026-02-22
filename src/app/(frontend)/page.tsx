@@ -24,11 +24,9 @@ export default async function HomePage() {
   const getAuthorName = (author: unknown): string => {
     if (!author || typeof author !== 'object') return 'Unknown author'
 
-    const candidate = author as { displayName?: null | string }
+    const candidate = author as { name?: null | string }
 
-    if (candidate.displayName && candidate.displayName.trim()) {
-      return candidate.displayName.trim()
-    }
+    if (candidate.name && candidate.name.trim()) return candidate.name.trim()
 
     return 'Unknown author'
   }
